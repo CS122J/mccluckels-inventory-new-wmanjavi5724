@@ -111,10 +111,12 @@ const orderDetails = {
     return missingItems
   },
   process() {
-    /* WRITE YOUR CODE HERE - Then remove the console.log */
-    console.log(
-      `Bug #3: Write a METHOD that depletes the inventory by using the 'items' array in the orderDetails object.`
+    this.items.forEach(({ itemname, count }) =>
+      Object.entries(mealIngredients[itemname]).forEach(
+        ([ingredient, amount]) => (inventory[ingredient].qty -= amount *count)
+      )
     )
+  
   },
 }
 
@@ -125,9 +127,7 @@ const orderDetails = {
 
 const restockAndDisplay = () => {
   /* WRITE YOUR CODE HERE - Then remove the console.log */
-  console.log(
-    "Bug #2: Invoke the inventory object METHOD that restocks according to prescribed supply levels for each ingredient. Be sure to include the required (object) argument."
-  )
+  inventory.restock(resupplyLevels)
   inventory.show()
   historyLog(
     `Restocked at ${new Date().toLocaleString("en-US", {
@@ -191,8 +191,6 @@ myForm.addEventListener("submit", formSubmit)
 
 document.addEventListener("DOMContentLoaded", () => {
   /* WRITE YOUR CODE HERE - Then remove the console.log */
-  console.log(
-    `Bug #1: Call the STANDALONE function that kicks off restocking and displaying of inventory.`
-  )
+  restockAndDisplay()
   document.querySelector("#message").innerHTML = ""
 })
